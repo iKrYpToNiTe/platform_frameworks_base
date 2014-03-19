@@ -259,6 +259,56 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                     return true;
                 }
             });
+            
+		// second: reboot now
+        mItems.add(
+            new SinglePressAction(
+                    com.android.internal.R.drawable.ic_lock_reboot,
+                    R.string.global_action_reboot_now) {
+
+                public void onPress() {
+                    // reboot by making sure radio and power are handled accordingly.
+                    mWindowManagerFuncs.reboot("now", false);
+                }
+
+                public boolean showDuringKeyguard() {
+                    return true;
+                }
+
+                public boolean showBeforeProvisioning() {
+                    return true;
+                }
+            });
+            
+		// third: reboot to safestrap
+        mItems.add(
+            new SinglePressAction(
+                    com.android.internal.R.drawable.ic_lock_reboot_safestrap,
+                    R.string.global_action_reboot_safestrap) {
+
+                public void onPress() {
+					// execute ssrecovery to create the safestrap recovery file and reboot
+					try {
+						String strCommand = "/system/bin/ssrecovery";
+						Process process = Runtime.getRuntime().exec(strCommand);
+						try {
+							process.waitFor();
+						} catch (InterruptedException e){
+							e.printStackTrace();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+                }
+
+                public boolean showDuringKeyguard() {
+                    return true;
+                }
+
+                public boolean showBeforeProvisioning() {
+                    return true;
+                }
+            });
 
         // next: airplane mode
         mItems.add(mAirplaneModeOn);
