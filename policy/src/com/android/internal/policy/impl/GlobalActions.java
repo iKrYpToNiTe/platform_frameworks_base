@@ -260,7 +260,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 }
             });
             
-		// second: reboot now
+	// second: reboot now
         mItems.add(
             new SinglePressAction(
                     com.android.internal.R.drawable.ic_lock_reboot,
@@ -280,25 +280,25 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 }
             });
             
-		// third: reboot to safestrap
+	// third: reboot to safestrap
         mItems.add(
             new SinglePressAction(
                     com.android.internal.R.drawable.ic_lock_reboot_safestrap,
                     R.string.global_action_reboot_safestrap) {
 
                 public void onPress() {
-					// execute ssrecovery to create the safestrap recovery file and reboot
-					try {
-						String strCommand = "/system/bin/ssrecovery";
-						Process process = Runtime.getRuntime().exec(strCommand);
-						try {
-							process.waitFor();
-						} catch (InterruptedException e){
-							e.printStackTrace();
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+			// execute ssrecovery to create the safestrap recovery file and reboot
+			try {
+				String strCommand = "/system/bin/ssrecovery";
+				Process process = Runtime.getRuntime().exec(strCommand);
+				try {
+					process.waitFor();
+				} catch (InterruptedException e){
+					e.printStackTrace();
+				}
+			 catch (IOException e) {
+				e.printStackTrace();
+			}
                 }
 
                 public boolean showDuringKeyguard() {
